@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { comments } from "../data";
 
 export interface ParamsProps {
@@ -18,6 +19,7 @@ export function find(id: string) {
 //------------
 
 export async function GET(_req: Request, { params }: ParamsProps) {
+  if (Number(params.id) > comments.length) redirect("/comments");
   const comment = find(params.id);
   return Response.json(comment);
 }
